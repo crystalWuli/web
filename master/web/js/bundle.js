@@ -58,7 +58,7 @@
     regClass("mHUgF18XRQaT8ads-f2jEw")
   ], Login);
 
-  // src/Main.ts
+  // src/Progress.ts
   var { regClass: regClass2, property: property2 } = Laya;
   var Main = class extends Laya.Script {
     // @property({type : Laya.Label})
@@ -69,6 +69,12 @@
       this.loadText.text = "\u52A0\u8F7D\u4E2D...";
       Laya.timer.loop(100, this, this.changeProgress);
     }
+    loadLogin() {
+      Laya.loader.load("resources/Prefabs/Login.lh", Laya.Loader.HIERARCHY).then((res) => {
+        let prefab = res.create();
+        this.owner.parent.addChild(prefab);
+      });
+    }
     changeProgress() {
       this.progressBar.value += 0.05;
       var progress = this.progressBar.value * 100;
@@ -77,8 +83,13 @@
       if (this.progressBar.value == 1) {
         this.loadText.text = "\u52A0\u8F7D\u5B8C";
         Laya.timer.clear(this, this.changeProgress);
-        Laya.Scene.open("Scenes/Login.ls");
+        this.loadLogin();
+        this.hideOther();
       }
+    }
+    hideOther() {
+      this.progressBar.visible = false;
+      this.loadText.visible = false;
     }
   };
   __decorateClass([
@@ -90,4 +101,40 @@
   Main = __decorateClass([
     regClass2("e60XQm7tTY2BwFAdxb8D1g")
   ], Main);
+
+  // src/Main.ts
+  var { regClass: regClass3, property: property3 } = Laya;
+  var Main2 = class extends Laya.Script {
+    constructor() {
+      super(...arguments);
+      this.text = "";
+    }
+    //组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+    onAwake() {
+      Laya.loader.load("resources/Prefabs/FirstPage.lh", Laya.Loader.HIERARCHY).then((res) => {
+        let prefab = res.create();
+        this.owner.addChild(prefab);
+      });
+    }
+    //组件被启用后执行，例如节点被添加到舞台后
+    //onEnable(): void {}
+    //组件被禁用时执行，例如从节点从舞台移除后
+    //onDisable(): void {}
+    //第一次执行update之前执行，只会执行一次
+    //onStart(): void {}
+    //手动调用节点销毁时执行
+    //onDestroy(): void {}
+    //每帧更新时执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
+    //onUpdate(): void {}
+    //每帧更新时执行，在update之后执行，尽量不要在这里写大循环逻辑或者使用getComponent方法
+    //onLateUpdate(): void {}
+    //鼠标点击后执行。与交互相关的还有onMouseDown等十多个函数，具体请参阅文档。
+    //onMouseClick(): void {}
+  };
+  __decorateClass([
+    property3(String)
+  ], Main2.prototype, "text", 2);
+  Main2 = __decorateClass([
+    regClass3("lYtkvpLKR3aQyIu9Bb__Fw")
+  ], Main2);
 })();
