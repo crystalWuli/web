@@ -73,6 +73,7 @@
       this.progressBar.value += 0.05;
       var progress = this.progressBar.value * 100;
       this.loadText.text = `\u52A0\u8F7D\u4E2D ${progress.toFixed(0)}%`;
+      console.log(`first page ${progress.toFixed(0)}%`);
       if (this.progressBar.value == 1) {
         this.loadText.text = "\u52A0\u8F7D\u5B8C";
         Laya.timer.clear(this, this.changeProgress);
