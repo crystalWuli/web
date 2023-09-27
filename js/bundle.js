@@ -18,17 +18,25 @@
     constructor() {
       super(...arguments);
       this.text = "";
+      //组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
+      //onAwake(): void {}
+      //组件被启用后执行，例如节点被添加到舞台后
+      //onEnable(): void {}
+      //组件被禁用时执行，例如从节点从舞台移除后
+      //onDisable(): void {}
+      this.strCol_blue = "atlas/comp/btn_big_blue.png";
+      this.strCol_green = "atlas/comp/btn_big_green.png";
+      this.blueCol = true;
     }
-    //组件被激活后执行，此时所有节点和组件均已创建完毕，此方法只执行一次
-    //onAwake(): void {}
-    //组件被启用后执行，例如节点被添加到舞台后
-    //onEnable(): void {}
-    //组件被禁用时执行，例如从节点从舞台移除后
-    //onDisable(): void {}
     //第一次执行update之前执行，只会执行一次
     onStart() {
       this.btn.on(Laya.Event.CLICK, this, () => {
         console.log(`\u5F53\u524D\u8F93\u5165:${this.txtInput.text}  \u9009\u62E9:${this.comboBox.selectedLabel}`);
+      });
+      this.btnChangeSkin.on(Laya.Event.CLICK, this, () => {
+        this.blueCol = !this.blueCol;
+        console.log(this.blueCol);
+        this.btnChangeSkin.skin = this.blueCol ? this.strCol_blue : this.strCol_green;
       });
       this.comboBox.labels = "Debug,Release";
       this.comboBox.selectedIndex = 0;
@@ -54,6 +62,9 @@
   __decorateClass([
     property({ type: Laya.ComboBox })
   ], Login.prototype, "comboBox", 2);
+  __decorateClass([
+    property({ type: Laya.Button })
+  ], Login.prototype, "btnChangeSkin", 2);
   Login = __decorateClass([
     regClass("mHUgF18XRQaT8ads-f2jEw")
   ], Login);
